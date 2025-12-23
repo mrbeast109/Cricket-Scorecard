@@ -4,7 +4,7 @@ body{
   font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
   background:
     linear-gradient(rgba(0,0,0,.2),rgba(0,0,0,.2)),
-    url("WhatsApp Image 2025-12-23 at 4.44.02 PM.jpeg")
+    url("IMG_8329.JPG")
     center/cover fixed;
   color:#fff;
   padding:10px;
@@ -252,6 +252,7 @@ input:focus{outline:none;border-color:#000000;}
   .player-selection,.match-layout{flex-direction:column;}
   .current-batsmen{flex-direction:column;}
 }
+
 
 
 
