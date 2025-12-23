@@ -4,7 +4,7 @@ body{
   font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
   background:
     linear-gradient(rgba(0,0,0,.2),rgba(0,0,0,.2)),
-    url("https://i1.wp.com/1.bp.blogspot.com/-umLGP-pUYuw/XyKFveHHuJI/AAAAAAAACMg/ngj1zddr3g4nCjo5pAKsEDGBKDhT9NPWQCLcBGAsYHQ/s1920/indian-cricket-team-history.jpg?strip=all")
+    url("img.jpg")
     center/cover fixed;
   color:#fff;
   padding:10px;
@@ -252,3 +252,4 @@ input:focus{outline:none;border-color:#000000;}
   .player-selection,.match-layout{flex-direction:column;}
   .current-batsmen{flex-direction:column;}
 }
+
