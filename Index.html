@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cricket Scorecard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+
+  <h1>🏏 Cricket Scorecard</h1>
+
+  <!-- TOSS + TEAM SETUP -->
+  <div id="tossScreen" class="screen active">
+    <div class="toss-container">
+      <h2>Toss & Teams</h2>
+
+      <div class="team-input">
+        <h3>Team 1</h3>
+        <input type="text" id="team1Name" placeholder="Team 1 Name">
+        <input type="number" id="team1Players"  min="2" max="15">
+        <div id="team1PlayersContainer"></div>
+      </div>
+
+      <div class="team-input">
+        <h3>Team 2</h3>
+        <input type="text" id="team2Name" placeholder="Team 2 Name">
+        <input type="number" id="team2Players"  min="2" max="15">
+        <div id="team2PlayersContainer"></div>
+      </div>
+
+      <div class="toss-options">
+        <h3>Who won the toss?</h3>
+        <div class="toss-buttons">
+          <button class="toss-btn" data-team="1">Team 1</button>
+          <button class="toss-btn" data-team="2">Team 2</button>
+        </div>
+      </div>
+
+      <div class="choice-options" id="choiceOptions" style="display:none;">
+        <h3>Toss Decision</h3>
+        <div class="choice-buttons">
+          <button class="choice-btn" data-choice="bat">Bat First</button>
+          <button class="choice-btn" data-choice="bowl">Bowl First</button>
+        </div>
+      </div>
+
+      <div class="match-input">
+        <label for="overs">Overs per innings</label>
+        <input type="number" id="overs" value="5" min="1" max="50">
+      </div>
+
+      <button id="nextBtn" class="btn-primary" style="display:none;">Next → Select Players</button>
+    </div>
+  </div>
+
+  <!-- PLAYER SELECTION -->
+  <div id="playerScreen" class="screen">
+    <div class="header">
+      <h2 id="playerScreenTitle">Select Opening Players</h2>
+      <button id="backToToss" class="btn-secondary">← Back</button>
+    </div>
+
+    <div class="player-selection">
+      <div class="batting-side">
+        <h3>Batting Team (Striker & Non‑Striker)</h3>
+        <div class="player-list" id="battingPlayers"></div>
+      </div>
+      <div class="bowling-side">
+        <h3>Bowling Team (Opening Bowler)</h3>
+        <div class="player-list" id="bowlingPlayers"></div>
+      </div>
+    </div>
+
+    <button id="startMatchBtn" class="btn-primary" disabled>Start Match</button>
+  </div>
+
+  <!-- MATCH SCREEN -->
+  <div id="matchScreen" class="screen">
+    <div class="header">
+      <h2 id="matchTitle">Innings</h2>
+      <button id="backToPlayers" class="btn-secondary">← Back</button>
+    </div>
+
+    <div class="match-layout">
+      <!-- Batting left -->
+      <div class="batting-panel">
+        <div class="current-batsmen">
+          <div class="batsman-card striker">
+            <img id="strikerImg" class="player-img" src="">
+            <div id="strikerName" class="batsman-name">Striker</div>
+            <div id="strikerStats" class="batsman-stats">0 (0)</div>
+          </div>
+          <div class="batsman-card">
+            <img id="nonStrikerImg" class="player-img" src="">
+            <div id="nonStrikerName" class="batsman-name">Non‑Striker</div>
+            <div id="nonStrikerStats" class="batsman-stats">0 (0)</div>
+          </div>
+        </div>
+
+        <div class="team-total">
+          <span id="currentTeamTotal">0</span>/<span id="currentTeamWickets">0</span>
+          &nbsp;(<span id="currentOvers">0.0</span> ov)
+        </div>
+      </div>
+
+      <!-- Bowling right -->
+      <div class="bowler-panel">
+        <div class="bowler-card">
+          <img id="bowlerImg" class="player-img" src="">
+          <div id="bowlerName" class="bowler-name">Bowler</div>
+          <div id="bowlerStats" class="bowler-stats">0–0 (0.0 ov)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTROLS -->
+    <div class="controls">
+      <div class="run-controls">
+        <button class="btn-run" data-runs="1">1</button>
+        <button class="btn-run" data-runs="2">2</button>
+        <button class="btn-run" data-runs="3">3</button>
+        <button class="btn-run" data-runs="4">4</button>
+        <button class="btn-run" data-runs="6">6</button>
+      </div>
+
+      <div class="action-controls">
+        <button id="ballBtn" class="btn-ball">Dot Ball</button>
+        <button id="wicketBtn" class="btn-wicket">Wicket</button>
+        <select id="dismissalType">
+          <option value="">How out?</option>
+          <option value="bowled">Bowled</option>
+          <option value="caught">Caught</option>
+          <option value="run out">Run out</option>
+          <option value="stumped">Stumped</option>
+        </select>
+      </div>
+
+      <div class="extra-controls">
+        <label>
+          <input type="checkbox" id="extraRun"> +1 (No/Wide – no ball counted)
+        </label>
+        <button id="resetBtn" class="btn-danger">Reset Innings</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- DIALOG FOR NEXT BATSMAN -->
+  <div id="nextBatsmanModal" class="modal">
+    <div class="modal-content">
+      <h3>Select next batsman</h3>
+      <div id="nextBatsmanList" class="player-list small"></div>
+      <button id="closeBatsmanModal" class="btn-secondary">Cancel</button>
+    </div>
+  </div>
+
+  <!-- DIALOG FOR NEXT BOWLER -->
+  <div id="nextBowlerModal" class="modal">
+    <div class="modal-content">
+      <h3>Select next bowler</h3>
+      <div id="nextBowlerList" class="player-list small"></div>
+      <button id="closeBowlerModal" class="btn-secondary">Cancel</button>
+    </div>
+  </div>
+
+</div>
+<script src="script.js"></script>
+</body>
+</html>

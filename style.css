@@ -1,0 +1,254 @@
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  min-height:100vh;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  background:
+    linear-gradient(rgba(0,0,0,.2),rgba(0,0,0,.2)),
+    url("https://i1.wp.com/1.bp.blogspot.com/-umLGP-pUYuw/XyKFveHHuJI/AAAAAAAACMg/ngj1zddr3g4nCjo5pAKsEDGBKDhT9NPWQCLcBGAsYHQ/s1920/indian-cricket-team-history.jpg?strip=all")
+    center/cover fixed;
+  color:#fff;
+  padding:10px;
+}
+.container{
+  max-width:1100px;
+  margin:0 auto;
+  background: rgba(255,255,255,0.05);
+  border-radius:18px;
+  padding:20px;
+  backdrop-filter:blur(3px);
+}
+
+h1{
+  text-align:center;
+  margin-bottom:16px;
+  font-size:26px;
+  color:#facc15;
+}
+.screen{display:none;}
+.screen.active{display:block;}
+
+.team-input{
+  background:rgba(255,255,255,0.1);
+  border-radius:14px;
+  padding:14px;
+  margin-bottom:14px;
+}
+.team-input h3{
+  margin-bottom:8px;
+  color:#facc15;
+}
+input[type=text],
+input[type=number]{
+  width:100%;
+  padding:8px 10px;
+  margin-bottom:8px;
+  border-radius:8px;
+  border:1px solid #4b5563;
+  background:rgba(255,255,255,0.1);
+  color:#000000;
+  font-size:14px;
+}
+input:focus{outline:none;border-color:#000000;}
+
+.player-input{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  margin-bottom:6px;
+}
+.player-input input[type=file]{flex:1;}
+.player-preview{
+  width:36px;height:36px;border-radius:50%;
+  object-fit:cover;border:2px solid #facc15;display:none;
+}
+
+.toss-options,.choice-options,.match-input{
+  margin:10px 0;
+  padding:10px;
+  border-radius:10px;
+  background:rgba(255,255,255,0.1);
+}
+.toss-buttons,.choice-buttons{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+.toss-btn,.choice-btn{
+  padding:8px 16px;
+  border-radius:20px;
+  border:none;
+  background:rgba(255,255,255,0.1);
+  color:#111827;
+  font-weight:600;
+  cursor:pointer;
+}
+.toss-btn.active,.choice-btn.active{
+  background:#facc15;
+}
+
+.btn-primary,.btn-secondary,.btn-danger{
+  border:none;
+  padding:10px 16px;
+  border-radius:999px;
+  cursor:pointer;
+  font-weight:600;
+}
+.btn-primary{
+  background:#22c55e;
+  color:#022c22;
+  width:100%;
+  margin-top:8px;
+}
+.btn-primary:disabled{opacity:.5;cursor:not-allowed;}
+.btn-secondary{background:#4b5563;color:#e5e7eb;}
+.btn-danger{background:#dc2626;color:#fee2e2;}
+
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:8px;
+  margin-bottom:12px;
+}
+.header h2{font-size:18px;color:#facc15;}
+
+.player-selection{
+  display:flex;
+  gap:12px;
+  margin-bottom:12px;
+}
+.player-list{
+  background:rgba(255,255,255,0.1);
+  border-radius:12px;
+  padding:8px;
+  max-height:260px;
+  overflow-y:auto;
+}
+.player-list.small{max-height:200px;}
+.player-item{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:6px 8px;
+  border-radius:8px;
+  cursor:pointer;
+}
+.player-item:hover{background:#1f2937;}
+.player-item.selected{background:#22c55e33;}
+.player-item img{
+  width:32px;height:32px;border-radius:50%;object-fit:cover;
+}
+.player-item span{font-size:14px;}
+
+.match-layout{
+  display:flex;
+  gap:12px;
+  margin-bottom:12px;
+}
+.batting-panel,.bowler-panel{
+  background:#020617;
+  border-radius:14px;
+  padding:10px;
+  flex:1;
+}
+.current-batsmen{
+  display:flex;
+  gap:8px;
+  margin-bottom:8px;
+}
+.batsman-card,.bowler-card{
+  flex:1;
+  border-radius:12px;
+  padding:8px;
+  background:#111827;
+  text-align:center;
+}
+.player-img{
+  width:48px;height:48px;border-radius:50%;
+  object-fit:cover;margin-bottom:4px;
+}
+.batsman-name,.bowler-name{
+  font-size:14px;font-weight:600;color:#facc15;
+}
+.batsman-stats,.bowler-stats{
+  font-size:13px;color:#e5e7eb;
+}
+.team-total{
+  margin-top:6px;
+  border-radius:8px;
+  padding:8px;
+  background:#1e293b;
+  text-align:center;
+  font-weight:600;
+}
+
+.controls{
+  margin-top:10px;
+  background:#020617;
+  border-radius:14px;
+  padding:10px;
+}
+.run-controls,.action-controls,.extra-controls{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  justify-content:center;
+  margin-bottom:6px;
+}
+.btn-run{
+  padding:8px 14px;
+  border-radius:999px;
+  border:none;
+  background:#16a34a;
+  color:#ecfdf5;
+  font-weight:600;
+  cursor:pointer;
+}
+.btn-ball,.btn-wicket{
+  border-radius:999px;
+  border:none;
+  padding:8px 14px;
+  font-weight:600;
+  cursor:pointer;
+}
+.btn-ball{background:#2563eb;color:#eff6ff;}
+.btn-wicket{background:#dc2626;color:#fee2e2;}
+#dismissalType{
+  padding:6px 8px;
+  border-radius:999px;
+  border:1px solid #4b5563;
+  background:#020617;
+  color:#e5e7eb;
+  font-size:13px;
+}
+
+/* Modals for choosing next batsman/bowler */
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.7);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:50;
+}
+.modal-content{
+  background:#020617;
+  padding:12px;
+  border-radius:12px;
+  width:90%;
+  max-width:360px;
+}
+.modal-content h3{
+  margin-bottom:8px;
+  font-size:16px;
+  color:#facc15;
+}
+
+/* Responsive */
+@media (max-width:768px){
+  .container{padding:14px;}
+  .player-selection,.match-layout{flex-direction:column;}
+  .current-batsmen{flex-direction:column;}
+}
