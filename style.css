@@ -111,7 +111,9 @@ input:focus{outline:none;border-color:#000000;}
   gap:8px;
   margin-bottom:12px;
 }
-.header h2{font-size:18px;color:#facc15;}
+.header h2{font-size:18px;
+           color:#facc15;
+          }
 
 .player-selection{
   display:flex;
@@ -134,12 +136,24 @@ input:focus{outline:none;border-color:#000000;}
   border-radius:8px;
   cursor:pointer;
 }
-.player-item:hover{background:#1f2937;}
-.player-item.selected{background:#22c55e33;}
-.player-item img{
-  width:32px;height:32px;border-radius:50%;object-fit:cover;
+.player-item:hover{
+  background:#1f2937;
 }
-.player-item span{font-size:14px;}
+
+.player-item.selected{
+  background:#22c55e33;
+}
+
+.player-item img{
+  width:32px;
+  height:32px;
+  border-radius:50%;
+  object-fit:cover;
+}
+
+.player-item span{
+  font-size:14px;
+}
 
 .match-layout{
   display:flex;
@@ -165,15 +179,24 @@ input:focus{outline:none;border-color:#000000;}
   text-align:center;
 }
 .player-img{
-  width:48px;height:48px;border-radius:50%;
-  object-fit:cover;margin-bottom:4px;
+  width:48px;
+  height:48px;
+  border-radius:50%;
+  object-fit:cover;
+  margin-bottom:4px;
 }
+
 .batsman-name,.bowler-name{
-  font-size:14px;font-weight:600;color:#facc15;
+  font-size:14px;
+  font-weight:600;
+  color:#facc15;
 }
+
 .batsman-stats,.bowler-stats{
-  font-size:13px;color:#e5e7eb;
+  font-size:13px;
+  color:#e5e7eb;
 }
+
 .team-total{
   margin-top:6px;
   border-radius:8px;
@@ -212,8 +235,16 @@ input:focus{outline:none;border-color:#000000;}
   font-weight:600;
   cursor:pointer;
 }
-.btn-ball{background:#2563eb;color:#eff6ff;}
-.btn-wicket{background:#dc2626;color:#fee2e2;}
+.btn-ball{
+  background:#2563eb;
+  color:#eff6ff;
+}
+
+.btn-wicket{
+  background:#dc2626;
+  color:#fee2e2;
+}
+
 #dismissalType{
   padding:6px 8px;
   border-radius:999px;
@@ -223,7 +254,7 @@ input:focus{outline:none;border-color:#000000;}
   font-size:13px;
 }
 
-/* Modals for choosing next batsman/bowler */
+/* for choosing next batsman/bowler */
 .modal{
   position:fixed;
   inset:0;
@@ -252,6 +283,7 @@ input:focus{outline:none;border-color:#000000;}
   .player-selection,.match-layout{flex-direction:column;}
   .current-batsmen{flex-direction:column;}
 }
+
 
 
 
