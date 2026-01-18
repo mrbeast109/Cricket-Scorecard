@@ -29,7 +29,7 @@ function generatePlayerInputs(containerId, teamNum) {
   const container = $(containerId);
   container.innerHTML = "";
   const count = parseInt(teamNum === 1 ? $("team1Players").value || 11
-                                      : $("team2Players").value || 11);
+    : $("team2Players").value || 11);
   for (let i = 1; i <= count; i++) {
     const div = document.createElement("div");
     div.className = "player-input";
@@ -94,7 +94,7 @@ $("nextBtn").addEventListener("click", () => {
 });
 
 function collectTeams() {
-  ["team1","team2"].forEach((key, idx) => {
+  ["team1", "team2"].forEach((key, idx) => {
     const num = idx + 1;
     const nPlayers = parseInt($(`team${num}Players`).value) || 11;
     state.teams[key].name = $(`team${num}Name`).value.trim() || `Team ${num}`;
@@ -189,7 +189,7 @@ function updateStartButton() {
 
 // ---------- SCREEN HELP ----------
 function showScreen(name) {
-  ["tossScreen","playerScreen","matchScreen"].forEach(id => {
+  ["tossScreen", "playerScreen", "matchScreen"].forEach(id => {
     $(id).classList.toggle("active", id === name);
   });
 }
@@ -201,7 +201,7 @@ $("startMatchBtn").addEventListener("click", () => {
   state.striker = openingStriker;
   state.nonStriker = openingNonStriker;
   state.bowler = openingBowler;
-  state.innings = { total:0, wickets:0, balls:0, overs:0 };
+  state.innings = { total: 0, wickets: 0, balls: 0, overs: 0 };
   updateMatchUI();
   showScreen("matchScreen");
 });
@@ -225,7 +225,7 @@ function updateMatchUI() {
 
   // bowler
   const oBalls = state.bowler.bowlBalls;
-  const ov = `${Math.floor(oBalls/6)}.${oBalls%6}`;
+  const ov = `${Math.floor(oBalls / 6)}.${oBalls % 6}`;
   $("bowlerImg").src = state.bowler.photo || placeholderAvatar();
   $("bowlerName").textContent = state.bowler.name;
   $("bowlerStats").textContent =
@@ -234,41 +234,43 @@ function updateMatchUI() {
   $("currentTeamTotal").textContent = state.innings.total;
   $("currentTeamWickets").textContent = state.innings.wickets;
   $("currentOvers").textContent =
-    `${Math.floor(state.innings.balls/6)}.${state.innings.balls%6}`;
+    `${Math.floor(state.innings.balls / 6)}.${state.innings.balls % 6}`;
 }
 
 // ---------- SCORING ----------
 $$(".btn-run").forEach(btn => {
   btn.addEventListener("click", () => {
-    const runs = parseInt(btn.dataset.runs,10);
-    addRuns(runs,false);
+    const runs = parseInt(btn.dataset.runs, 10);
+    addRuns(runs, false);
   });
 });
 
-$("ballBtn").addEventListener("click", () => addRuns(0,false));
+$("ballBtn").addEventListener("click", () => addRuns(0, false));
 $("extraRun").addEventListener("change", e => {
   if (e.target.checked) {
-    addRuns(1,true); // extra, ball not counted
+    addRuns(1, true); // extra, ball not counted
     e.target.checked = false;
   }
 });
 
 $("wicketBtn").addEventListener("click", onWicket);
 $("resetBtn").addEventListener("click", () => {
-  state.innings = { total:0, wickets:0, balls:0, overs:0 };
-  state.teams[state.battingTeam==="1"?"team1":"team2"].players
-    .forEach(p => {p.runs=0;p.balls=0;p.out=false;p.dismissal="";});
-  state.teams[state.bowlingTeam==="1"?"team1":"team2"].players
-    .forEach(p => {p.bowlBalls=0;p.bowlRuns=0;p.bowlWkts=0;});
+  state.innings = { total: 0, wickets: 0, balls: 0, overs: 0 };
+  state.teams[state.battingTeam === "1" ? "team1" : "team2"].players
+    .forEach(p => { p.runs = 0; p.balls = 0; p.out = false; p.dismissal = ""; });
+  state.teams[state.bowlingTeam === "1" ? "team1" : "team2"].players
+    .forEach(p => { p.bowlBalls = 0; p.bowlRuns = 0; p.bowlWkts = 0; });
   updateMatchUI();
 });
 
-function addRuns(runs,isExtra){
+function addRuns(runs, isExtra) {
   // innings over?
-  if (state.innings.wickets>=10) return;
+  const batKey = state.battingTeam === "1" ? "team1" : "team2";
+  const totalPlayers = state.teams[batKey].players.length;
+  if (state.innings.wickets >= totalPlayers - 1) return;
 
   state.innings.total += runs;
-  if (!isExtra){
+  if (!isExtra) {
     // legal ball
     state.striker.balls++;
     state.innings.balls++;
@@ -278,20 +280,20 @@ function addRuns(runs,isExtra){
   state.bowler.bowlRuns += runs;
 
   // strike rotation for odd runs
-  if (!isExtra && runs%2===1){
+  if (!isExtra && runs % 2 === 1) {
     const tmp = state.striker;
     state.striker = state.nonStriker;
     state.nonStriker = tmp;
   }
 
   // over finished?
-  if (!isExtra && state.innings.balls % 6 === 0){
+  if (!isExtra && state.innings.balls % 6 === 0) {
     openNextBowlerModal();
   }
 
   // max overs limit
-  const completedOvers = Math.floor(state.innings.balls/6);
-  if (completedOvers >= state.oversLimit){
+  const completedOvers = Math.floor(state.innings.balls / 6);
+  if (completedOvers >= state.oversLimit) {
     alert("Overs finished");
   }
 
@@ -299,8 +301,11 @@ function addRuns(runs,isExtra){
 }
 
 // ---------- WICKET / NEXT BATSMAN ----------
-function onWicket(){
-  if (state.innings.wickets>=10) return;
+function onWicket() {
+  const batKey = state.battingTeam === "1" ? "team1" : "team2";
+  const totalPlayers = state.teams[batKey].players.length;
+
+  if (state.innings.wickets >= totalPlayers - 1) return;
   const mode = $("dismissalType").value || "out";
   state.striker.out = true;
   state.striker.dismissal = mode;
@@ -309,8 +314,8 @@ function onWicket(){
   state.innings.balls++;
   state.bowler.bowlBalls++;
 
-  if (state.innings.wickets >= 10){
-    alert("All out (10 wickets). Innings over.");
+  if (state.innings.wickets >= totalPlayers - 1) {
+    alert(`All out (${state.innings.wickets} wickets). Innings over.`);
     updateMatchUI();
     return;
   }
@@ -320,55 +325,55 @@ function onWicket(){
 }
 
 // ---------- MODAL: NEXT BATSMAN ----------
-function openNextBatsmanModal(){
+function openNextBatsmanModal() {
   const batKey = state.battingTeam === "1" ? "team1" : "team2";
   const list = $("nextBatsmanList");
   list.innerHTML = "";
-  state.teams[batKey].players.forEach((p,idx)=>{
-    if (p.out || p===state.striker || p===state.nonStriker) return;
+  state.teams[batKey].players.forEach((p, idx) => {
+    if (p.out || p === state.striker || p === state.nonStriker) return;
     const item = document.createElement("div");
-    item.className="player-item";
-    item.innerHTML = `<img src="${p.photo||placeholderAvatar()}"><span>${p.name}</span>`;
-    item.addEventListener("click",()=>{
+    item.className = "player-item";
+    item.innerHTML = `<img src="${p.photo || placeholderAvatar()}"><span>${p.name}</span>`;
+    item.addEventListener("click", () => {
       state.striker = p; // new batsman comes as striker
-      $("nextBatsmanModal").style.display="none";
+      $("nextBatsmanModal").style.display = "none";
       updateMatchUI();
     });
     list.appendChild(item);
   });
-  $("nextBatsmanModal").style.display="flex";
+  $("nextBatsmanModal").style.display = "flex";
 }
-$("closeBatsmanModal").addEventListener("click",()=>{
-  $("nextBatsmanModal").style.display="none";
+$("closeBatsmanModal").addEventListener("click", () => {
+  $("nextBatsmanModal").style.display = "none";
 });
 
 // ---------- MODAL: NEXT BOWLER ----------
-function openNextBowlerModal(){
+function openNextBowlerModal() {
   const bowlKey = state.bowlingTeam === "1" ? "team1" : "team2";
   const list = $("nextBowlerList");
   list.innerHTML = "";
-  state.teams[bowlKey].players.forEach((p,idx)=>{
+  state.teams[bowlKey].players.forEach((p, idx) => {
     const item = document.createElement("div");
-    item.className="player-item";
-    const ov = `${Math.floor(p.bowlBalls/6)}.${p.bowlBalls%6}`;
+    item.className = "player-item";
+    const ov = `${Math.floor(p.bowlBalls / 6)}.${p.bowlBalls % 6}`;
     item.innerHTML =
-      `<img src="${p.photo||placeholderAvatar()}">
+      `<img src="${p.photo || placeholderAvatar()}">
        <span>${p.name} – ${p.bowlRuns} runs, ${p.bowlWkts} wkts, ${ov} ov</span>`;
-    item.addEventListener("click",()=>{
+    item.addEventListener("click", () => {
       state.bowler = p;
-      $("nextBowlerModal").style.display="none";
+      $("nextBowlerModal").style.display = "none";
       updateMatchUI();
     });
     list.appendChild(item);
   });
-  $("nextBowlerModal").style.display="flex";
+  $("nextBowlerModal").style.display = "flex";
 }
-$("closeBowlerModal").addEventListener("click",()=>{
-  $("nextBowlerModal").style.display="none";
+$("closeBowlerModal").addEventListener("click", () => {
+  $("nextBowlerModal").style.display = "none";
 });
 
 // back to player selection
-$("backToPlayers").addEventListener("click",()=>showScreen("playerScreen"));
+$("backToPlayers").addEventListener("click", () => showScreen("playerScreen"));
 
 // init
 console.log("Cricket Scorecard loaded");
